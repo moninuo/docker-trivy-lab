@@ -33,8 +33,9 @@ FROM debian:11-slim
 # Cada RUN es una capa nueva → imagen más grande, cache ineficiente
 RUN apt-get update
 RUN apt-get install -y openssl
-RUN apt-get install -y curl
-RUN apt-get install -y wget
+# Se han quitado estos paquetes inseguros (curl, wget) ya no pasan el escaneo de Trivy (CVE's críticas)
+# RUN apt-get install -y curl
+# RUN apt-get install -y wget
 RUN apt-get install -y netcat-traditional
 # Sin rm -rf /var/lib/apt/lists/* → la caché de apt se queda en la imagen
 
