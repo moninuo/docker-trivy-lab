@@ -27,7 +27,7 @@
 
 # === IMAGEN BASE ===
 # TODO: Cambiar esta imagen base (debian:13-slim es más moderna y segura)
-FROM debian:11-slim
+FROM debian:13-slim
 
 # === INSTALACIÓN DE PAQUETES ===
 # Cada RUN es una capa nueva → imagen más grande, cache ineficiente
@@ -42,10 +42,11 @@ RUN apt-get install -y netcat-traditional
 # === USUARIO ===
 # TODO: Crear usuario no-root y cambiar a él
 RUN useradd -m -u 1001 appuser
+USER appuser
 
 # === SECRETOS (MALÍSIMA PRÁCTICA) ===
 # TODO: Eliminar completamente esta línea
-RUN echo 'SECRET_KEY=super_secret_key_123' > /root/.env
+# RUN echo 'SECRET_KEY=super_secret_key_123' > /root/.env
 
 COPY index.html /var/www/html/index.html
 
