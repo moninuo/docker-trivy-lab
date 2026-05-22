@@ -40,7 +40,7 @@ FROM debian:13-slim
 # Sin rm -rf /var/lib/apt/lists/* → la caché de apt se queda en la imagen
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends openssl python3 && \
+    apt-get install -y --no-install-recommends openssl busybox && \
     rm -rf /var/lib/apt/lists/*
 
 # === USUARIO ===
@@ -61,7 +61,7 @@ EXPOSE 80
 
 # === COMANDO DE INICIO ===
 # TODO: Reemplazar por un comando seguro
-CMD ["python3", "-m", "http.server", "80", "--directory", "/var/www/html"]
+CMD ["busybox", "httpd", "-f", "-p", "80", "-h", "/var/www/html"]
 
 # =============================================
 # RESUMEN DE CAMBIOS RECOMENDADOS:
